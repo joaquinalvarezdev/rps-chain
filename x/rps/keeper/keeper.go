@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"context"
 	"fmt"
 
 	"cosmossdk.io/collections"
@@ -19,8 +20,10 @@ type Keeper struct {
 	authority string
 
 	// state management
-	Schema collections.Schema
-	Params collections.Item[types.Params]
+	Schema     collections.Schema
+	Params     collections.Item[types.Params]
+	GameNumber collections.Sequence
+	Games      collections.Map[uint64, types.Game]
 }
 
 // NewKeeper creates a new Keeper instance
@@ -35,6 +38,8 @@ func NewKeeper(cdc codec.BinaryCodec, addressCodec address.Codec, storeService s
 		addressCodec: addressCodec,
 		authority:    authority,
 		Params:       collections.NewItem(sb, types.ParamsKey, "params", codec.CollValue[types.Params](cdc)),
+		GameNumber:   collections.NewSequence(sb, types.GameNumberKey, "game_number"),
+		Games:        collections.NewMap(sb, types.GamesKey, "games", collections.Uint64Key, codec.CollValue[types.Game](cdc)),
 	}
 
 	schema, err := sb.Build()
@@ -50,4 +55,14 @@ func NewKeeper(cdc codec.BinaryCodec, addressCodec address.Codec, storeService s
 // GetAuthority returns the module's authority.
 func (k Keeper) GetAuthority() string {
 	return k.authority
+}
+
+// NextGameNumber returns and increments the global game number counter.
+func (k Keeper) NextGameNumber(ctx context.Context) uint64 {
+	n, err := k.GameNumber.Next(ctx)
+	if err != nil {
+		panic(err)
+	}
+	// sequence starts at 0 but we want first game to start at 1s
+	return n + 1
 }
