@@ -9,7 +9,7 @@ import "lb/rps/v1/rps.proto";
 // GenesisState defines the rps modules genesis state
 message GenesisState {
   // params defines all the parameters for the rps module
-  Params param = 1 [ (gogoproto.nullable) = false ];
+  Params params = 1 [ (gogoproto.nullable) = false ];
   // games are the stored games in the module
   repeated Game games = 2 [ (gogoproto.nullable) = false ];
 }

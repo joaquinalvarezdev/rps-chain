@@ -37,3 +37,11 @@ rpsd start # start the chain
 - [Cosmos-SDK Documentation](https://docs.cosmos.network/)
 - [Mini - A minimal Cosmos-SDK chain](https://github.com/cosmosregistry/chain-minimal)
 - [Cosmos-SDK module template](https://github.com/cosmosregistry/example)
+
+
+## Commands cheat sheet
+
+- Query a TX `rpsd q tx {{txHash}}`
+- Query a Game `rpsd q rps game {{gameNumber}}`
+- Make a move `rpsd tx rps make-move {{gameNumber}} {{Move}} --from {{accountName}}`
+- Export `rpsd export > /tmp/genesis.json`
