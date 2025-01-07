@@ -30,6 +30,8 @@ install:
 	@go mod verify
 	@echo "--> installing rpsd"
 	@go install $(BUILD_FLAGS) -mod=readonly ./cmd/rpsd
+	@echo "--> signing rpsd binary workaround mac"
+	@codesign --force --sign - $(shell go env GOPATH)/bin/rpsd
 
 init:
 	./scripts/init.sh
