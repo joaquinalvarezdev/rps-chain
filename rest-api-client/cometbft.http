@@ -1,0 +1,18 @@
+# Tendermint/CometBFT RPC Endpoints 
+# https://docs.tendermint.com/v0.34/rpc/
+
+# CometBFT :: Health
+GET {{cometBFTUrl}}/health HTTP/1.1
+Content-Type: application/json
+
+# CometBFT :: Status
+GET {{cometBFTUrl}}/status HTTP/1.1
+Content-Type: application/json
+
+# CometBFT :: Block Results
+GET {{cometBFTUrl}}/block_results HTTP/1.1
+Content-Type: application/json
+
+# CometBFT :: Status
+GET {{cometBFTUrl}}/tx?hash=0x81AB9E84DFA59090272D807F72B8E53B4034913ED556BB38E3A8466871D5A393 HTTP/1.1
+Content-Type: application/json
