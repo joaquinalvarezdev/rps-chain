@@ -19,7 +19,7 @@ func (gs *GenesisState) Validate() error {
 
 	for _, game := range gs.Games {
 		if _, ok := unique[game.GameNumber]; ok {
-			return ErrDuplicateGameNumber
+			return ErrDuplicatedGameNumber
 		}
 		if err := game.Validate(); err != nil {
 			return err
