@@ -24,6 +24,8 @@ type Keeper struct {
 	Params     collections.Item[types.Params]
 	GameNumber collections.Sequence
 	Games      collections.Map[uint64, types.Game]
+	// ActiveGamesQueue stores the game expiration and the game id as key
+	ActiveGamesQueue collections.KeySet[collections.Pair[uint64, uint64]]
 }
 
 // NewKeeper creates a new Keeper instance
@@ -40,6 +42,12 @@ func NewKeeper(cdc codec.BinaryCodec, addressCodec address.Codec, storeService s
 		Params:       collections.NewItem(sb, types.ParamsKey, "params", codec.CollValue[types.Params](cdc)),
 		GameNumber:   collections.NewSequence(sb, types.GameNumberKey, "game_number"),
 		Games:        collections.NewMap(sb, types.GamesKey, "games", collections.Uint64Key, codec.CollValue[types.Game](cdc)),
+		ActiveGamesQueue: collections.NewKeySet(
+			sb,
+			types.ActiveGamesQueueKey,
+			"active_games_queue",
+			collections.PairKeyCodec(collections.Uint64Key, collections.Uint64Key),
+		),
 	}
 
 	schema, err := sb.Build()
