@@ -134,7 +134,7 @@ interface AccountInfo {
   sequence: number;
 }
 
-/* it("submit many txs - can finish the game in one block", async function () {
+it("submit many txs - can finish the game in one block", async function () {
   // create a new game and get the game id from the events
   const response: DeliverTxResponse = await aliceClient.createGame(
     alice,
@@ -214,4 +214,4 @@ interface AccountInfo {
   expect(game!.score[0].toNumber()).toEqual(2);
   expect(game!.score[1].toNumber()).toEqual(1);
   expect(game!.status).toEqual("Player A Wins");
-}, 25_000); // increase test timeout */
+}, 60_000); // increase test timeout
