@@ -12,7 +12,7 @@ import (
 )
 
 func (k Keeper) EndBlocker(ctx context.Context) error {
-	defer telemetry.ModuleMeasureSince(types.ModuleName, time.Now(), telemetry.MetricKeyBeginBlocker)
+	defer telemetry.ModuleMeasureSince(types.ModuleName, time.Now(), telemetry.MetricKeyEndBlocker)
 	sdkCtx := sdk.UnwrapSDKContext(ctx)
 	// fetch active games whose expiration period have ended (are equal or less than the current block height)
 	rng := collections.NewPrefixUntilPairRange[uint64, uint64](uint64(sdkCtx.BlockHeight()))
