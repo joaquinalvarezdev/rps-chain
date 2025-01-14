@@ -5,53 +5,55 @@
 // source: lb/rps/v1/tx.proto
 
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 import Long from "long";
+import _m0 from "protobufjs/minimal";
 import { Params } from "./rps";
 
 export const protobufPackage = "lb.rps.v1";
 
-/** MsgCreateGame defines the Msg/CreateGame gRPC method. */
+/** MsgCreateGame defines the MsgCreateGame request type */
 export interface MsgCreateGame {
   creator: string;
   oponent: string;
   rounds: Long;
 }
 
-/** MsgCreateGameResponse defines the Msg/CreateGame gRPC response. */
+/** MsgCreateGameResponse defines the MsgCreateGame response type */
 export interface MsgCreateGameResponse {
 }
 
-/** MsgMakeMove defines the Msg/MakeMove gRPC method. */
+/** MsgMakeMove defines the Msg/MakeMove request type. */
 export interface MsgMakeMove {
+  /** player is the message sender. */
   player: string;
   gameNumber: Long;
   move: string;
 }
 
-/** MsgMakeMoveResponse defines the Msg/MakeMove gRPC response. */
+/** MsgMakeMoveResponse defines the Msg/MakeMove response type. */
 export interface MsgMakeMoveResponse {
 }
 
-/** MsgRevealMove defines the Msg/MakeMove gRPC method. */
+/** MsgRevealMove defines the Msg/RevealMove request type. */
 export interface MsgRevealMove {
+  /** player is the message sender. */
   player: string;
   gameNumber: Long;
   revealedMove: string;
   salt: string;
 }
 
-/** MsgRevealMoveResponse defines the Msg/MakeMove gRPC response. */
+/** MsgRevealMoveResponse defines the Msg/RevealMove response type. */
 export interface MsgRevealMoveResponse {
 }
 
-/** MsgUpdateParams defines the Msg/UpdateParams gRPC method. */
+/** MsgUpdateParams defines the Msg/Update params request type */
 export interface MsgUpdateParams {
   authority: string;
   params?: Params | undefined;
 }
 
-/** MsgUpdateParamsResponse defines the Msg/UpdateParams gRPC response. */
+/** MsgUpdateParamsResponse defines the MsgUpdateParmas response type */
 export interface MsgUpdateParamsResponse {
 }
 
@@ -59,8 +61,8 @@ function createBaseMsgCreateGame(): MsgCreateGame {
   return { creator: "", oponent: "", rounds: Long.UZERO };
 }
 
-export const MsgCreateGame: MessageFns<MsgCreateGame> = {
-  encode(message: MsgCreateGame, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const MsgCreateGame = {
+  encode(message: MsgCreateGame, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
@@ -68,47 +70,44 @@ export const MsgCreateGame: MessageFns<MsgCreateGame> = {
       writer.uint32(18).string(message.oponent);
     }
     if (!message.rounds.equals(Long.UZERO)) {
-      writer.uint32(24).uint64(message.rounds.toString());
+      writer.uint32(24).uint64(message.rounds);
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgCreateGame {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateGame {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCreateGame();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1: {
+        case 1:
           if (tag !== 10) {
             break;
           }
 
           message.creator = reader.string();
           continue;
-        }
-        case 2: {
+        case 2:
           if (tag !== 18) {
             break;
           }
 
           message.oponent = reader.string();
           continue;
-        }
-        case 3: {
+        case 3:
           if (tag !== 24) {
             break;
           }
 
-          message.rounds = Long.fromString(reader.uint64().toString(), true);
+          message.rounds = reader.uint64() as Long;
           continue;
-        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
       }
-      reader.skip(tag & 7);
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -153,13 +152,13 @@ function createBaseMsgCreateGameResponse(): MsgCreateGameResponse {
   return {};
 }
 
-export const MsgCreateGameResponse: MessageFns<MsgCreateGameResponse> = {
-  encode(_: MsgCreateGameResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const MsgCreateGameResponse = {
+  encode(_: MsgCreateGameResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgCreateGameResponse {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateGameResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCreateGameResponse();
     while (reader.pos < end) {
@@ -169,7 +168,7 @@ export const MsgCreateGameResponse: MessageFns<MsgCreateGameResponse> = {
       if ((tag & 7) === 4 || tag === 0) {
         break;
       }
-      reader.skip(tag & 7);
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -196,13 +195,13 @@ function createBaseMsgMakeMove(): MsgMakeMove {
   return { player: "", gameNumber: Long.UZERO, move: "" };
 }
 
-export const MsgMakeMove: MessageFns<MsgMakeMove> = {
-  encode(message: MsgMakeMove, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const MsgMakeMove = {
+  encode(message: MsgMakeMove, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.player !== "") {
       writer.uint32(10).string(message.player);
     }
     if (!message.gameNumber.equals(Long.UZERO)) {
-      writer.uint32(16).uint64(message.gameNumber.toString());
+      writer.uint32(16).uint64(message.gameNumber);
     }
     if (message.move !== "") {
       writer.uint32(26).string(message.move);
@@ -210,42 +209,39 @@ export const MsgMakeMove: MessageFns<MsgMakeMove> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgMakeMove {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMakeMove {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgMakeMove();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1: {
+        case 1:
           if (tag !== 10) {
             break;
           }
 
           message.player = reader.string();
           continue;
-        }
-        case 2: {
+        case 2:
           if (tag !== 16) {
             break;
           }
 
-          message.gameNumber = Long.fromString(reader.uint64().toString(), true);
+          message.gameNumber = reader.uint64() as Long;
           continue;
-        }
-        case 3: {
+        case 3:
           if (tag !== 26) {
             break;
           }
 
           message.move = reader.string();
           continue;
-        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
       }
-      reader.skip(tag & 7);
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -290,13 +286,13 @@ function createBaseMsgMakeMoveResponse(): MsgMakeMoveResponse {
   return {};
 }
 
-export const MsgMakeMoveResponse: MessageFns<MsgMakeMoveResponse> = {
-  encode(_: MsgMakeMoveResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const MsgMakeMoveResponse = {
+  encode(_: MsgMakeMoveResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgMakeMoveResponse {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMakeMoveResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgMakeMoveResponse();
     while (reader.pos < end) {
@@ -306,7 +302,7 @@ export const MsgMakeMoveResponse: MessageFns<MsgMakeMoveResponse> = {
       if ((tag & 7) === 4 || tag === 0) {
         break;
       }
-      reader.skip(tag & 7);
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -333,13 +329,13 @@ function createBaseMsgRevealMove(): MsgRevealMove {
   return { player: "", gameNumber: Long.UZERO, revealedMove: "", salt: "" };
 }
 
-export const MsgRevealMove: MessageFns<MsgRevealMove> = {
-  encode(message: MsgRevealMove, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const MsgRevealMove = {
+  encode(message: MsgRevealMove, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.player !== "") {
       writer.uint32(10).string(message.player);
     }
     if (!message.gameNumber.equals(Long.UZERO)) {
-      writer.uint32(16).uint64(message.gameNumber.toString());
+      writer.uint32(16).uint64(message.gameNumber);
     }
     if (message.revealedMove !== "") {
       writer.uint32(26).string(message.revealedMove);
@@ -350,50 +346,46 @@ export const MsgRevealMove: MessageFns<MsgRevealMove> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgRevealMove {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRevealMove {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRevealMove();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1: {
+        case 1:
           if (tag !== 10) {
             break;
           }
 
           message.player = reader.string();
           continue;
-        }
-        case 2: {
+        case 2:
           if (tag !== 16) {
             break;
           }
 
-          message.gameNumber = Long.fromString(reader.uint64().toString(), true);
+          message.gameNumber = reader.uint64() as Long;
           continue;
-        }
-        case 3: {
+        case 3:
           if (tag !== 26) {
             break;
           }
 
           message.revealedMove = reader.string();
           continue;
-        }
-        case 4: {
+        case 4:
           if (tag !== 34) {
             break;
           }
 
           message.salt = reader.string();
           continue;
-        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
       }
-      reader.skip(tag & 7);
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -443,13 +435,13 @@ function createBaseMsgRevealMoveResponse(): MsgRevealMoveResponse {
   return {};
 }
 
-export const MsgRevealMoveResponse: MessageFns<MsgRevealMoveResponse> = {
-  encode(_: MsgRevealMoveResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const MsgRevealMoveResponse = {
+  encode(_: MsgRevealMoveResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgRevealMoveResponse {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRevealMoveResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRevealMoveResponse();
     while (reader.pos < end) {
@@ -459,7 +451,7 @@ export const MsgRevealMoveResponse: MessageFns<MsgRevealMoveResponse> = {
       if ((tag & 7) === 4 || tag === 0) {
         break;
       }
-      reader.skip(tag & 7);
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -486,45 +478,43 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
   return { authority: "", params: undefined };
 }
 
-export const MsgUpdateParams: MessageFns<MsgUpdateParams> = {
-  encode(message: MsgUpdateParams, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const MsgUpdateParams = {
+  encode(message: MsgUpdateParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
     }
     if (message.params !== undefined) {
-      Params.encode(message.params, writer.uint32(18).fork()).join();
+      Params.encode(message.params, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateParams {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateParams {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUpdateParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1: {
+        case 1:
           if (tag !== 10) {
             break;
           }
 
           message.authority = reader.string();
           continue;
-        }
-        case 2: {
+        case 2:
           if (tag !== 18) {
             break;
           }
 
           message.params = Params.decode(reader, reader.uint32());
           continue;
-        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
       }
-      reader.skip(tag & 7);
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -564,13 +554,13 @@ function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
 
-export const MsgUpdateParamsResponse: MessageFns<MsgUpdateParamsResponse> = {
-  encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const MsgUpdateParamsResponse = {
+  encode(_: MsgUpdateParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateParamsResponse {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateParamsResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUpdateParamsResponse();
     while (reader.pos < end) {
@@ -580,7 +570,7 @@ export const MsgUpdateParamsResponse: MessageFns<MsgUpdateParamsResponse> = {
       if ((tag & 7) === 4 || tag === 0) {
         break;
       }
-      reader.skip(tag & 7);
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -605,13 +595,13 @@ export const MsgUpdateParamsResponse: MessageFns<MsgUpdateParamsResponse> = {
 
 /** Msg defines the module Msg service. */
 export interface Msg {
-  /** CreateGame defines a method to create a new game */
+  /** CreateGame creates a game */
   CreateGame(request: MsgCreateGame): Promise<MsgCreateGameResponse>;
-  /** MakeMove submit a hashed move to the specificied game */
+  /** MakeMove submit a hashed move to the specified game. */
   MakeMove(request: MsgMakeMove): Promise<MsgMakeMoveResponse>;
-  /** RevealMove submit a revealed move to the specified game */
+  /** RevealMove submit a revealed move to the specified game. */
   RevealMove(request: MsgRevealMove): Promise<MsgRevealMoveResponse>;
-  /** UpdateParams defines a method to update the module's parameters */
+  /** UpdateParams updates params of the rps module. */
   UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
 }
 
@@ -630,25 +620,25 @@ export class MsgClientImpl implements Msg {
   CreateGame(request: MsgCreateGame): Promise<MsgCreateGameResponse> {
     const data = MsgCreateGame.encode(request).finish();
     const promise = this.rpc.request(this.service, "CreateGame", data);
-    return promise.then((data) => MsgCreateGameResponse.decode(new BinaryReader(data)));
+    return promise.then((data) => MsgCreateGameResponse.decode(_m0.Reader.create(data)));
   }
 
   MakeMove(request: MsgMakeMove): Promise<MsgMakeMoveResponse> {
     const data = MsgMakeMove.encode(request).finish();
     const promise = this.rpc.request(this.service, "MakeMove", data);
-    return promise.then((data) => MsgMakeMoveResponse.decode(new BinaryReader(data)));
+    return promise.then((data) => MsgMakeMoveResponse.decode(_m0.Reader.create(data)));
   }
 
   RevealMove(request: MsgRevealMove): Promise<MsgRevealMoveResponse> {
     const data = MsgRevealMove.encode(request).finish();
     const promise = this.rpc.request(this.service, "RevealMove", data);
-    return promise.then((data) => MsgRevealMoveResponse.decode(new BinaryReader(data)));
+    return promise.then((data) => MsgRevealMoveResponse.decode(_m0.Reader.create(data)));
   }
 
   UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
     const promise = this.rpc.request(this.service, "UpdateParams", data);
-    return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
+    return promise.then((data) => MsgUpdateParamsResponse.decode(_m0.Reader.create(data)));
   }
 }
 
@@ -668,15 +658,11 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
+if (_m0.util.Long !== Long) {
+  _m0.util.Long = Long as any;
+  _m0.configure();
 }
 
-export interface MessageFns<T> {
-  encode(message: T, writer?: BinaryWriter): BinaryWriter;
-  decode(input: BinaryReader | Uint8Array, length?: number): T;
-  fromJSON(object: any): T;
-  toJSON(message: T): unknown;
-  create<I extends Exact<DeepPartial<T>, I>>(base?: I): T;
-  fromPartial<I extends Exact<DeepPartial<T>, I>>(object: I): T;
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }
