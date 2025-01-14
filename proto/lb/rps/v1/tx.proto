@@ -14,8 +14,10 @@ service Msg {
 
   // CreateGame defines a method to create a new game
   rpc CreateGame(MsgCreateGame) returns (MsgCreateGameResponse);
-  // MakeMove defines a method to make a move in a game
+  // MakeMove submit a hashed move to the specificied game
   rpc MakeMove(MsgMakeMove) returns (MsgMakeMoveResponse);
+  // RevealMove submit a revealed move to the specified game
+  rpc RevealMove(MsgRevealMove) returns (MsgRevealMoveResponse);
   // UpdateParams defines a method to update the module's parameters
   rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
 }
@@ -42,6 +44,19 @@ message MsgMakeMove {
 
 // MsgMakeMoveResponse defines the Msg/MakeMove gRPC response.
 message MsgMakeMoveResponse {}
+
+// MsgRevealMove defines the Msg/MakeMove gRPC method.
+message MsgRevealMove {
+  option (cosmos.msg.v1.signer) = "player";
+
+  string player = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+  uint64 game_number = 2;
+  string revealed_move = 3;
+  string salt = 4;
+}
+
+// MsgRevealMoveResponse defines the Msg/MakeMove gRPC response.
+message MsgRevealMoveResponse {}
 
 // MsgUpdateParams defines the Msg/UpdateParams gRPC method.
 message MsgUpdateParams {

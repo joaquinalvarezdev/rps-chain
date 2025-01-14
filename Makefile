@@ -4,7 +4,7 @@ DOCKER := $(shell which docker)
 
 # don't override user values
 ifeq (,$(VERSION))
-  VERSION := $(shell git describe --exact-match 2>/dev/null)
+  VERSION := $(shell git describe --tags --always)
   # if VERSION is empty, then populate it with branch's name and raw commit hash
   ifeq (,$(VERSION))
     VERSION := $(BRANCH)-$(COMMIT)
@@ -30,6 +30,8 @@ install:
 	@go mod verify
 	@echo "--> installing rpsd"
 	@go install $(BUILD_FLAGS) -mod=readonly ./cmd/rpsd
+	@echo "--> signing rpsd binary workaround mac"
+	@codesign --force --sign - $(shell go env GOPATH)/bin/rpsd
 
 init:
 	./scripts/init.sh
