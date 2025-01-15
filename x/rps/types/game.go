@@ -2,8 +2,10 @@ package types
 
 import (
 	"bytes"
+	"strings"
 
 	"cosmossdk.io/errors"
+	"github.com/0xlb/rpschain/app/params"
 	"github.com/0xlb/rpschain/x/rps/rules"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
@@ -271,5 +273,12 @@ func (game *Game) Ended() bool {
 
 func getPlayerAddress(address string) (sdk.AccAddress, error) {
 	addr, err := sdk.AccAddressFromBech32(address)
+	if err != nil {
+		return nil, errors.Wrapf(err, ErrInvalidAddress.Error(), address)
+	}
+	// assert the bech32 account has the rps chain prefix
+	if !strings.HasPrefix(addr.String(), params.Bech32PrefixAccAddr) {
+		return nil, errors.Wrapf(ErrInvalidAddress, "invalid address prefix")
+	}
 	return addr, errors.Wrapf(err, ErrInvalidAddress.Error(), address)
 }
