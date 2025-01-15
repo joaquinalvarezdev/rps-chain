@@ -14,13 +14,15 @@ require (
 	cosmossdk.io/log v1.4.1
 	cosmossdk.io/math v1.4.0
 	cosmossdk.io/store v1.1.1
-	cosmossdk.io/tools/confix v0.1.1
+	cosmossdk.io/tools/confix v0.1.2
 	cosmossdk.io/x/upgrade v0.1.4
 	github.com/cometbft/cometbft v0.38.12
 	github.com/cosmos/cosmos-db v1.1.0
 	github.com/cosmos/cosmos-proto v1.0.0-beta.5
 	github.com/cosmos/cosmos-sdk v0.50.11
 	github.com/cosmos/gogoproto v1.7.0
+	github.com/cosmos/ibc-go/modules/capability v1.0.1
+	github.com/cosmos/ibc-go/v8 v8.5.2
 	github.com/golang/protobuf v1.5.4
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/spf13/cobra v1.8.1
@@ -36,8 +38,6 @@ require (
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/dgraph-io/badger/v4 v4.2.0 // indirect
 	github.com/google/flatbuffers v24.3.25+incompatible // indirect
-	github.com/hashicorp/go-uuid v1.0.2 // indirect
-	github.com/onsi/ginkgo v1.16.4 // indirect
 )
 
 require (
